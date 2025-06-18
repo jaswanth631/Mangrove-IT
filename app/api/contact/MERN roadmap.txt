@@ -1,0 +1,138 @@
+🛣️ MERN Stack Learning Roadmap
+📌 Phase 1: Prerequisites
+HTML, CSS, JavaScript (ES6+)
+
+Semantic HTML, Flexbox, Grid
+
+CSS basics + responsive design (media queries)
+
+Modern JS (let/const, arrow functions, promises, async/await, spread/rest, destructuring)
+
+Git & GitHub
+
+Git basics: clone, commit, push, pull, branches
+
+GitHub: repositories, collaboration
+
+📌 Phase 2: Frontend – React.js
+Core Concepts
+
+Components, Props, State
+
+JSX syntax
+
+Conditional rendering and lists
+
+Advanced Topics
+
+useEffect, useState, useContext, useReducer
+
+React Router
+
+Form handling and validation
+
+Custom hooks
+
+UI Libraries
+
+Tailwind CSS or Material UI
+
+State Management
+
+Context API or Redux Toolkit
+
+📌 Phase 3: Backend – Node.js & Express.js
+Node.js Basics
+
+Modules (CommonJS vs ESModules)
+
+File system, event loop, callbacks
+
+Express.js
+
+Creating REST APIs
+
+Middleware, Routing
+
+Error handling
+
+Authentication & Security
+
+JWT, bcrypt
+
+CORS, Helmet, Rate Limiting
+
+📌 Phase 4: Database – MongoDB
+MongoDB Basics
+
+Documents, collections
+
+CRUD operations
+
+Using Mongoose
+
+Defining schemas/models
+
+Population, validation
+
+Querying and aggregation
+
+📌 Phase 5: Full Stack Integration
+Connect React with Express
+
+Axios or Fetch API
+
+Proxy setup in dev environment
+
+Projects
+
+To-Do App
+
+Blog Platform
+
+E-Commerce Cart System
+
+Error Handling & Validation
+
+Express error middleware
+
+Frontend error messages
+
+📌 Phase 6: DevOps & Production
+Version Control
+
+Git best practices
+
+Deployment
+
+Frontend: Vercel/Netlify
+
+Backend: Render/Heroku/ Railway
+
+MongoDB Atlas (cloud DB)
+
+Environment Variables
+
+.env usage
+
+Security best practices
+
+📌 Bonus (Optional Advanced Topics)
+TypeScript in MERN
+
+Testing: Jest, React Testing Library, Supertest
+
+WebSockets (Socket.io)
+
+GraphQL with MERN
+
+CI/CD pipelines
+
+🛠️ Suggested Tools
+Code Editor: VS Code
+
+API Client: Postman
+
+Linter: ESLint + Prettier
+
+Package Manager: npm or yarn
