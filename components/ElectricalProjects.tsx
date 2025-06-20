@@ -87,25 +87,6 @@ const ElectricalProjects = () => {
             </div>
           </div>
 
-          {/* Projects Showcase */}
-          <div>
-            <h3 className="text-2xl font-semibold mb-6 text-primary">Featured Projects</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {projects.map((project, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 hover:bg-white/10 transition-colors duration-300"
-                >
-                  <h4 className="text-xl font-semibold mb-4 text-primary">{project.title}</h4>
-                  <p className="text-text/80 leading-relaxed">{project.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
           {/* Additional Information */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -113,7 +94,7 @@ const ElectricalProjects = () => {
             transition={{ duration: 0.8, delay: 1 }}
             className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-6"
           >
-            <h3 className="text-xl font-semibold mb-4 text-primary">Our Commitment</h3>
+            <h3 className="text-3xl md:text-5xl font-bold text-center text-primary mb-6">Our Commitment</h3>
             <p className="text-text/80 leading-relaxed">
               We are proud of our quality workmanship and we are committed to providing the highest standards of quality, productivity, safe and on-time work. Our services have been developed through years of experience and continuous feedback from:
             </p>

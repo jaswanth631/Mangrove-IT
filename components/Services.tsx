@@ -194,25 +194,19 @@ const Services = () => {
                 <p className="text-gray-600 mb-2 font-medium">{service.description}</p>
                 <p className="text-gray-500 text-sm mb-4">{service.details}</p>
                 
-                {selectedService === index && (
+                {selectedService === index && service.features && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     className="w-full"
                   >
-                    <ul className="space-y-2">
+                    <ul className="space-y-2 text-left w-full mt-4">
                       {service.features.map((feature, i) => (
-                        <motion.li
-                          key={i}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                          className="flex items-center text-sm text-gray-600"
-                        >
+                        <li key={i} className="flex items-center text-sm text-gray-700">
                           <span className={`w-2 h-2 ${service.iconColor} rounded-full mr-2`} />
                           {feature}
-                        </motion.li>
+                        </li>
                       ))}
                     </ul>
                   </motion.div>

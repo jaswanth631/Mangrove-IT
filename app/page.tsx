@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaArrowRight, FaChevronDown, FaArrowDown } from 'react-icons/fa';
@@ -35,203 +35,79 @@ export default function Home() {
 
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
+  // Animated scroll indicator
+  const scrollRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (inView && scrollRef.current) {
+      scrollRef.current.classList.add('animate-bounce');
+    }
+  }, [inView]);
+
   return (
     <main className="min-h-screen bg-gradient-dark text-text">
       <Navigation />
       
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute w-full h-full object-cover z-0"
-        >
-          <source src="/bg-landing.mp4" type="video/mp4" />
-        </video>
-
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
-
-        {/* Animated Gradient Overlays */}
-        <motion.div
-          className="absolute inset-0 z-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2 }}
-        >
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-transparent"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.2, 0.4, 0.2],
-              rotate: [0, 5, 0],
-              x: [0, 20, 0],
-              y: [0, -20, 0],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-tr from-secondary/15 via-transparent to-transparent"
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.2, 0.4, 0.2],
-              rotate: [0, -5, 0],
-              x: [0, -20, 0],
-              y: [0, 20, 0],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 3,
-            }}
-          />
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-tl from-primary/15 via-transparent to-transparent"
-            animate={{
-              scale: [1, 1.4, 1],
-              opacity: [0.2, 0.4, 0.2],
-              rotate: [0, 5, 0],
-              x: [0, 30, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 6,
-            }}
-          />
-        </motion.div>
-
-        {/* Animated Grid Pattern */}
-        <motion.div
-          className="absolute inset-0 z-20 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(to right, #6366f1 1px, transparent 1px),
-                            linear-gradient(to bottom, #6366f1 1px, transparent 1px)`,
-            backgroundSize: '50px 50px',
-          }}
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
-            opacity: [0.03, 0.05, 0.03],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
-
-        {/* Floating Particles */}
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute z-20 w-1 h-1 rounded-full bg-accent"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-
-        {/* Content Container */}
-        <div className="container mx-auto px-4 relative z-30">
-          <motion.div
+        {/* Interactive Dynamic Background */}
+        <DynamicBackground />
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-20 flex flex-col items-center justify-center text-center">
+          <motion.h1
+            className="text-5xl md:text-7xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="flex flex-col items-center justify-center text-center"
+            transition={{ duration: 0.8 }}
           >
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-6 text-white"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.8 }}
+            Transforming Your Digital Vision
+            <span className="block text-accent mt-2">Into Reality</span>
+          </motion.h1>
+          <motion.p
+            className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Professional IT solutions tailored to your business needs. From audio-visual systems to industrial computing, we've got you covered.
+          </motion.p>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <motion.a
+              href="#contact"
+              className="btn-primary flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Welcome to{' '}
-              <motion.span 
-                className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
-                animate={{
-                  backgroundPosition: ['0% 50%', '100% 50%'],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-              >
-                Mangrove Integrated Solutions
-              </motion.span>
-            </motion.h1>
-            <motion.p
-              className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1 }}
+              Get Started <FaArrowDown className="animate-bounce" />
+            </motion.a>
+            <motion.a
+              href="#services"
+              className="btn-secondary flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Your trusted partner in AV Integration, IT Solutions, and System Integration. We bring over a decade of expertise to transform your digital vision into reality.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.2 }}
-              className="flex gap-4"
-            >
-              <motion.a
-                href="#contact"
-                className="btn-primary relative overflow-hidden group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: '0%' }}
-                  transition={{ duration: 0.3 }}
-                />
-                <span className="relative z-10">Contact Us</span>
-              </motion.a>
-              <motion.a
-                href="#services"
-                className="btn-secondary relative overflow-hidden group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: '0%' }}
-                  transition={{ duration: 0.3 }}
-                />
-                <span className="relative z-10">Our Services</span>
-              </motion.a>
-            </motion.div>
+              Our Services
+            </motion.a>
           </motion.div>
+          {/* Scroll Indicator */}
+          <div ref={scrollRef} className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30">
+            <FaArrowDown className="text-accent text-3xl animate-bounce" />
+          </div>
         </div>
       </section>
 
       {/* About Section */}
       <section id="about">
         <About />
+      </section>
+
+      {/* Services Section - already animated cards */}
+      <section id="services">
+        <Services />
       </section>
 
       {/* AV Integration Section */}
@@ -259,12 +135,7 @@ export default function Home() {
         <ElectricalProjects />
       </section>
 
-      {/* Services Section */}
-      <section className="bg-gradient-dark">
-        <Services />
-      </section>
-
-      {/* Metrics Section */}
+      {/* Metrics Section - animated counters */}
       <section className="bg-gradient-darker">
         <Metrics />
       </section>
@@ -274,7 +145,7 @@ export default function Home() {
         <Timeline />
       </section>
 
-      {/* Testimonials Section */}
+      {/* Testimonials Section - carousel */}
       <section className="bg-gradient-darker">
         <Testimonials />
       </section>

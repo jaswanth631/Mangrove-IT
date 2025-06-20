@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { DropdownProvider } from '../context/DropdownContext';
-import BlurOverlay from '../components/BlurOverlay';
+import { ThemeProvider } from 'next-themes'
+import { ModalProvider } from '@/context/ModalContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -72,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -80,10 +80,11 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={inter.className}>
-        <DropdownProvider>
-          <BlurOverlay />
-          {children}
-        </DropdownProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark">
+          <ModalProvider>
+            {children}
+          </ModalProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

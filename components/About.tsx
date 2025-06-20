@@ -18,7 +18,7 @@ const About = () => {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center" style={{ color: '#1E293B', fontFamily: 'Goudy Old Style, Palatino Linotype, serif' }}>
             About Mangrove Integrated Solutions
           </h2>
           
