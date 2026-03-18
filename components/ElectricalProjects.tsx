@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const ElectricalProjects = () => {
   const { ref, inView } = useInView({
@@ -10,99 +10,121 @@ const ElectricalProjects = () => {
 
   const services = [
     {
-      title: 'HT & LT Installations',
-      description: 'Complete high-tension and low-tension electrical installations for commercial and industrial projects.',
+      title: "HT & LT Installations",
+      description:
+        "Complete high-tension and low-tension electrical installations for commercial and industrial projects.",
     },
     {
-      title: 'Industrial Wiring',
-      description: 'Professional industrial wiring solutions for manufacturing and production facilities.',
+      title: "Industrial Wiring",
+      description:
+        "Professional industrial wiring solutions for manufacturing and production facilities.",
     },
     {
-      title: 'Electrical Design',
-      description: 'Comprehensive electrical system design and engineering services.',
+      title: "Electrical Design",
+      description:
+        "Comprehensive electrical system design and engineering services.",
     },
     {
-      title: 'Control Panels',
-      description: 'Custom electrical control panel design and manufacturing.',
+      title: "Control Panels",
+      description: "Custom electrical control panel design and manufacturing.",
     },
     {
-      title: 'Maintenance Contracts',
-      description: 'Annual maintenance contracts for electrical systems and equipment.',
+      title: "Maintenance Contracts",
+      description:
+        "Annual maintenance contracts for electrical systems and equipment.",
     },
     {
-      title: 'Repair Services',
-      description: 'Professional repair and maintenance services for electrical systems.',
+      title: "Repair Services",
+      description:
+        "Professional repair and maintenance services for electrical systems.",
     },
   ];
 
-  const projects = [
-    {
-      title: 'IISc Multimedia Class Rooms',
-      description: 'Complete electrical and AV integration for state-of-the-art multimedia classrooms.',
-    },
-    {
-      title: 'JNCASR Conference Hall',
-      description: '200-seat conference hall with integrated electrical and AV systems.',
-    },
-    {
-      title: 'Open Amphitheatre',
-      description: 'Large-scale electrical and lighting solutions for outdoor performance venue.',
-    },
-    {
-      title: 'Adithya Celestial Apartments',
-      description: 'Comprehensive electrical solutions for residential complex.',
-    },
+  const commitmentPoints = [
+    "Architects and Designers",
+    "Consultants and Engineers",
+    "Suppliers and Manufacturers",
+    "End Users and Clients",
   ];
 
   return (
-    <section className="py-20 bg-gradient-dark relative overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-16 md:py-20 lg:py-24 bg-slate-50">
+      <div className="container mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto"
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Electrical Projects
-          </h2>
-
-          {/* Services Grid */}
-          <div className="mb-16">
-            <h3 className="text-2xl font-semibold mb-6 text-primary">Our Services</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 hover:bg-white/10 transition-colors duration-300"
-                >
-                  <h4 className="text-xl font-semibold mb-4 text-primary">{service.title}</h4>
-                  <p className="text-text/80 leading-relaxed">{service.description}</p>
-                </motion.div>
-              ))}
-            </div>
+          {/* Section Title */}
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="section-title">Electrical Projects</h2>
+            <div className="accent-line my-6" />
+            <p className="section-subtitle max-w-3xl mx-auto">
+              Reliable power solutions delivered with precision and expertise
+            </p>
           </div>
 
-          {/* Additional Information */}
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                }}
+                whileHover={{ y: -6 }}
+                className="card hover-lift"
+              >
+                {/* Number Badge */}
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white font-bold text-sm mb-4">
+                  {index + 1}
+                </div>
+
+                <h4 className="text-xl md:text-2xl font-bold mb-3 text-navy-950">
+                  {service.title}
+                </h4>
+
+                <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+                  {service.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Commitment Section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-6"
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="card"
           >
-            <h3 className="text-3xl md:text-5xl font-bold text-center text-primary mb-6">Our Commitment</h3>
-            <p className="text-text/80 leading-relaxed">
-              We are proud of our quality workmanship and we are committed to providing the highest standards of quality, productivity, safe and on-time work. Our services have been developed through years of experience and continuous feedback from:
+            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-navy-950">
+              Our Commitment
+            </h3>
+            <p className="text-slate-600 leading-relaxed text-sm md:text-base mb-6">
+              We are proud of our quality workmanship and we are committed to
+              providing the highest standards of quality, productivity, safe and
+              on-time work. Our services have been developed through years of
+              experience and continuous feedback from:
             </p>
-            <ul className="list-disc list-inside text-text/80 space-y-2 mt-4">
-              <li>Architects and Designers</li>
-              <li>Consultants and Engineers</li>
-              <li>Suppliers and Manufacturers</li>
-              <li>End Users and Clients</li>
+            <ul className="space-y-3">
+              {commitmentPoints.map((item, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.9 + i * 0.1 }}
+                  className="flex items-center text-slate-700 text-sm md:text-base"
+                >
+                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-4 flex-shrink-0" />
+                  {item}
+                </motion.li>
+              ))}
             </ul>
           </motion.div>
         </motion.div>
@@ -111,4 +133,4 @@ const ElectricalProjects = () => {
   );
 };
 
-export default ElectricalProjects; 
+export default ElectricalProjects;

@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const SecuritySurveillance = () => {
   const { ref, inView } = useInView({
@@ -10,104 +10,150 @@ const SecuritySurveillance = () => {
 
   const services = [
     {
-      title: 'IP Video Surveillance',
-      description: 'Advanced IP-based surveillance systems with real-time monitoring capabilities.',
+      title: "IP Video Surveillance",
+      description:
+        "Advanced IP-based surveillance systems with real-time monitoring capabilities.",
     },
     {
-      title: 'Biometric Access Control',
-      description: 'Secure access control systems using biometric authentication.',
+      title: "Biometric Access Control",
+      description:
+        "Secure access control systems using biometric authentication.",
     },
     {
-      title: 'Fire Safety Systems',
-      description: 'Comprehensive fire safety solutions including smoke detectors and fire alarm systems.',
+      title: "Fire Safety Systems",
+      description:
+        "Comprehensive fire safety solutions including smoke detectors and fire alarm systems.",
     },
     {
-      title: 'Security Integration',
-      description: 'Integrated security solutions combining multiple security systems.',
+      title: "Security Integration",
+      description:
+        "Integrated security solutions combining multiple security systems.",
     },
   ];
 
   const sectors = [
-    'Education',
-    'Banking and finance',
-    'City surveillance',
-    'Critical infrastructure',
-    'Real Estate',
-    'Government',
-    'Healthcare',
-    'Industrial',
-    'Retail',
-    'Transportation',
+    "Education",
+    "Banking and finance",
+    "City surveillance",
+    "Critical infrastructure",
+    "Real Estate",
+    "Government",
+    "Healthcare",
+    "Industrial",
+    "Retail",
+    "Transportation",
+  ];
+
+  const features = [
+    "High-resolution video capture and recording",
+    "Real-time monitoring and remote access",
+    "Advanced motion detection and alerts",
+    "Cloud storage and backup options",
+    "Integration with existing security systems",
   ];
 
   return (
-    <section className="py-20 bg-gradient-darker relative overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-16 md:py-20 lg:py-24 bg-white">
+      <div className="container mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto"
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Security & Surveillance Solutions
-          </h2>
+          {/* Section Title */}
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="section-title">Security & Surveillance Solutions</h2>
+            <div className="accent-line my-6" />
+            <p className="section-subtitle max-w-3xl mx-auto">
+              Advanced security systems to protect what matters most
+            </p>
+          </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 hover:bg-white/10 transition-colors duration-300"
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.15,
+                }}
+                whileHover={{ y: -6 }}
+                className="card hover-lift"
               >
-                <h3 className="text-xl font-semibold mb-4 text-primary">{service.title}</h3>
-                <p className="text-text/80 leading-relaxed">{service.description}</p>
+                {/* Number Badge */}
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center text-white font-bold text-sm mb-4">
+                  {index + 1}
+                </div>
+
+                <h3 className="text-xl md:text-2xl font-bold mb-3 text-navy-950">
+                  {service.title}
+                </h3>
+
+                <p className="text-slate-600 leading-relaxed text-sm md:text-base">
+                  {service.description}
+                </p>
               </motion.div>
             ))}
           </div>
 
           {/* IP Video Surveillance Details */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-white/5 backdrop-blur-sm rounded-lg p-6 mb-12"
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="card mb-12 md:mb-16"
           >
-            <h3 className="text-2xl font-semibold mb-4 text-primary">IP Video Surveillance Solutions</h3>
-            <p className="text-text/80 leading-relaxed mb-4">
-              Our IP-based surveillance systems offer advanced features and capabilities:
+            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-navy-950">
+              IP Video Surveillance Solutions
+            </h3>
+            <p className="text-slate-600 leading-relaxed mb-6 text-sm md:text-base">
+              Our IP-based surveillance systems offer advanced features and
+              capabilities:
             </p>
-            <ul className="list-disc list-inside text-text/80 space-y-2">
-              <li>High-resolution video capture and recording</li>
-              <li>Real-time monitoring and remote access</li>
-              <li>Advanced motion detection and alerts</li>
-              <li>Cloud storage and backup options</li>
-              <li>Integration with existing security systems</li>
+            <ul className="space-y-3">
+              {features.map((item, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.7 + i * 0.1 }}
+                  className="flex items-center text-slate-700 text-sm md:text-base"
+                >
+                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-4 flex-shrink-0" />
+                  {item}
+                </motion.li>
+              ))}
             </ul>
           </motion.div>
 
           {/* Sectors Served */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="bg-white/5 backdrop-blur-sm rounded-lg p-6"
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="card"
           >
-            <h3 className="text-2xl font-semibold mb-4 text-primary">Sectors We Serve</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-navy-950 text-center">
+              Sectors We Serve
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {sectors.map((sector, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
-                  className="bg-white/5 rounded-lg p-4 text-center hover:bg-white/10 transition-colors duration-300"
+                  transition={{ duration: 0.4, delay: 0.9 + index * 0.05 }}
+                  whileHover={{ y: -4 }}
+                  className="bg-slate-50 rounded-lg p-4 text-center border border-slate-200 hover:border-primary-300 hover:shadow-soft transition-all duration-300"
                 >
-                  <span className="text-text/80">{sector}</span>
+                  <span className="text-slate-800 font-semibold text-xs md:text-sm">
+                    {sector}
+                  </span>
                 </motion.div>
               ))}
             </div>
@@ -118,4 +164,4 @@ const SecuritySurveillance = () => {
   );
 };
 
-export default SecuritySurveillance; 
+export default SecuritySurveillance;

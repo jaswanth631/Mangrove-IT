@@ -1,265 +1,130 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FaPaperPlane, FaCheck, FaExclamationCircle } from 'react-icons/fa';
+import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import ContactForm from "./ContactForm";
+import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [ref, inView] = useInView({
     threshold: 0.1,
-    triggerOnce: false,
+    triggerOnce: true,
   });
 
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+  const contactInfo = [
+    {
+      icon: <FaMapMarkerAlt className="text-2xl md:text-3xl" />,
+      title: "Visit Us",
+      details: "Bangalore, Karnataka, India",
     },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
+    {
+      icon: <FaPhone className="text-2xl md:text-3xl" />,
+      title: "Call Us",
+      details: "+91 123 456 7890",
     },
-  };
+    {
+      icon: <FaEnvelope className="text-2xl md:text-3xl" />,
+      title: "Email Us",
+      details: "info@mangroveit.com",
+    },
+  ];
 
   return (
-    <section className="py-20 bg-gray-50" id="contact">
-      <div className="container mx-auto px-4">
+    <section className="py-16 md:py-20 lg:py-24 bg-white" id="contact">
+      <div className="container mx-auto">
         <motion.div
           ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto"
         >
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <h2 className="section-title text-4xl font-bold mb-4">Contact Us</h2>
-            <p className="text-xl text-gray-600">
-              Get in touch with our team for a consultation
+          {/* Section Title */}
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="section-title">Get In Touch</h2>
+            <div className="accent-line my-6" />
+            <p className="section-subtitle max-w-3xl mx-auto">
+              Let's discuss how we can help transform your business
             </p>
-          </motion.div>
+          </div>
 
-          <motion.form
-            variants={itemVariants}
-            onSubmit={handleSubmit}
-            className="space-y-6"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={`input-field ${errors.name ? 'border-red-500' : ''}`}
-                  placeholder="Your name"
-                />
-                {errors.name && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-500 text-sm mt-1 flex items-center"
-                  >
-                    <FaExclamationCircle className="mr-1" />
-                    {errors.name}
-                  </motion.p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`input-field ${errors.email ? 'border-red-500' : ''}`}
-                  placeholder="Your email"
-                />
-                {errors.email && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-red-500 text-sm mt-1 flex items-center"
-                  >
-                    <FaExclamationCircle className="mr-1" />
-                    {errors.email}
-                  </motion.p>
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Phone (Optional)
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="input-field"
-                placeholder="Your phone number"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Message
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                className={`input-field h-32 ${errors.message ? 'border-red-500' : ''}`}
-                placeholder="Your message"
-              />
-              {errors.message && (
-                <motion.p
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-red-500 text-sm mt-1 flex items-center"
-                >
-                  <FaExclamationCircle className="mr-1" />
-                  {errors.message}
-                </motion.p>
-              )}
-            </div>
-
-            <motion.button
-              type="submit"
-              disabled={isSubmitting}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className={`btn-primary w-full flex items-center justify-center gap-2 ${
-                isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
-              }`}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+            {/* Contact Information */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-6"
             >
-              {isSubmitting ? (
-                <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                  >
-                    <FaPaperPlane />
-                  </motion.div>
-                  Sending...
-                </>
-              ) : submitStatus === 'success' ? (
-                <>
-                  <FaCheck />
-                  Message Sent!
-                </>
-              ) : (
-                <>
-                  <FaPaperPlane />
-                  Send Message
-                </>
-              )}
-            </motion.button>
+              <div className="card">
+                <h3 className="text-2xl md:text-3xl font-bold mb-6 text-navy-950">
+                  Contact Information
+                </h3>
+                <div className="space-y-6">
+                  {contactInfo.map((info, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={inView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="text-primary-600 flex-shrink-0">
+                        {info.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-base md:text-lg font-semibold text-navy-950 mb-1">
+                          {info.title}
+                        </h4>
+                        <p className="text-sm md:text-base text-slate-600">
+                          {info.details}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
 
-            {submitStatus === 'error' && (
               <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-red-500 text-center flex items-center justify-center gap-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.6 }}
+                className="card"
               >
-                <FaExclamationCircle />
-                Something went wrong. Please try again.
+                <h3 className="text-xl md:text-2xl font-bold mb-4 text-navy-950">
+                  Business Hours
+                </h3>
+                <div className="space-y-2 text-sm md:text-base text-slate-600">
+                  <p className="flex justify-between">
+                    <span className="font-medium">Monday - Friday:</span>
+                    <span>9:00 AM - 6:00 PM</span>
+                  </p>
+                  <p className="flex justify-between">
+                    <span className="font-medium">Saturday:</span>
+                    <span>10:00 AM - 4:00 PM</span>
+                  </p>
+                  <p className="flex justify-between">
+                    <span className="font-medium">Sunday:</span>
+                    <span>Closed</span>
+                  </p>
+                </div>
               </motion.div>
-            )}
-          </motion.form>
+            </motion.div>
+
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <ContactForm />
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
   );
 };
 
-export default Contact; 
+export default Contact;

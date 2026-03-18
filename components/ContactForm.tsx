@@ -1,216 +1,184 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaPhone, FaBuilding, FaPaperPlane } from 'react-icons/fa';
-import GradientButton from './GradientButton';
-
-const services = [
-  'AV Integration',
-  'IT Integration',
-  'Security & Surveillance',
-  'Distribution',
-  'Industrial Computing',
-  'Interior & Acoustics',
-  'Electrical Projects',
-  'Web Development',
-  'Mobile Development',
-  
-];
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaPaperPlane } from "react-icons/fa";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
+    setStatus("loading");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        setTimeout(() => setStatus("idle"), 3000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 3000);
+      }
+    } catch (error) {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      message: '',
+      ...formData,
+      [e.target.name]: e.target.value,
     });
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="max-w-2xl mx-auto"
-    >
-      <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl border border-white/20">
-        <h3 className="text-2xl font-bold text-text mb-6 text-center">Get in Touch</h3>
-        
-        {submitSuccess ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-8"
+    <div className="card">
+      <h3 className="text-2xl md:text-3xl font-bold mb-6 text-navy-950">
+        Send us a Message
+      </h3>
+
+      <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
+        <div>
+          <label
+            htmlFor="name"
+            className="block text-sm font-semibold text-slate-700 mb-2"
           >
-            <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FaPaperPlane className="w-8 h-8 text-accent" />
-            </div>
-            <h4 className="text-xl font-semibold text-text mb-2">Message Sent!</h4>
-            <p className="text-text/80">We'll get back to you soon.</p>
-            <GradientButton
-              onClick={() => setSubmitSuccess(false)}
-              className="mt-6"
-            >
-              Send Another Message
-              <FaPaperPlane className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </GradientButton>
-          </motion.div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="relative"
-              >
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaUser className="h-5 w-5 text-text/50" />
-                </div>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Your Name"
-                  required
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-text placeholder:text-text/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-                />
-              </motion.div>
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="input-field"
+            placeholder="Your name"
+          />
+        </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="relative"
-              >
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaEnvelope className="h-5 w-5 text-text/50" />
-                </div>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Your Email"
-                  required
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-text placeholder:text-text/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-                />
-              </motion.div>
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-semibold text-slate-700 mb-2"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="input-field"
+            placeholder="your.email@example.com"
+          />
+        </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="relative"
-              >
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaPhone className="h-5 w-5 text-text/50" />
-                </div>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Your Phone"
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-text placeholder:text-text/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-                />
-              </motion.div>
+        <div>
+          <label
+            htmlFor="phone"
+            className="block text-sm font-semibold text-slate-700 mb-2"
+          >
+            Phone
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="input-field"
+            placeholder="+91 123 456 7890"
+          />
+        </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="relative"
-              >
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaBuilding className="h-5 w-5 text-text/50" />
-                </div>
-                <input
-                  type="text"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  placeholder="Your Company"
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-text placeholder:text-text/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-                />
-              </motion.div>
-            </div>
+        <div>
+          <label
+            htmlFor="message"
+            className="block text-sm font-semibold text-slate-700 mb-2"
+          >
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows={5}
+            className="input-field resize-none"
+            placeholder="Tell us about your project..."
+          />
+        </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Your Message"
-                required
-                rows={4}
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-text placeholder:text-text/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none"
-              />
-            </motion.div>
+        <motion.button
+          type="submit"
+          disabled={status === "loading"}
+          className="btn-primary w-full flex items-center justify-center gap-2"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          {status === "loading" ? (
+            <>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              Sending...
+            </>
+          ) : status === "success" ? (
+            "Message Sent!"
+          ) : status === "error" ? (
+            "Failed to Send"
+          ) : (
+            <>
+              <FaPaperPlane />
+              Send Message
+            </>
+          )}
+        </motion.button>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="text-center"
-            >
-              <GradientButton
-                type="submit"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-text" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    Send Message
-                    <FaPaperPlane className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
-              </GradientButton>
-            </motion.div>
-          </form>
+        {status === "success" && (
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-green-600 text-sm text-center"
+          >
+            Thank you! We'll get back to you soon.
+          </motion.p>
         )}
-      </div>
-    </motion.div>
+
+        {status === "error" && (
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-red-600 text-sm text-center"
+          >
+            Something went wrong. Please try again.
+          </motion.p>
+        )}
+      </form>
+    </div>
   );
 };
 
-export default ContactForm; 
+export default ContactForm;

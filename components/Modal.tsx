@@ -20,34 +20,57 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, imageUr
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md"
           onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="relative bg-white rounded-lg shadow-xl w-full max-w-2xl p-0 m-4 text-slate-800 overflow-hidden"
+            className="relative frosted rounded-3xl shadow-layers w-full max-w-2xl m-4 overflow-hidden border border-slate-200"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex justify-between items-center px-6 pt-6 pb-2">
-              <h3 className="text-2xl font-bold text-primary">{title}</h3>
-              <button
+            {/* Header */}
+            <div className="flex justify-between items-center px-8 pt-8 pb-4">
+              <h3 className="text-3xl font-bold gradient-text">{title}</h3>
+              <motion.button
                 onClick={onClose}
-                className="text-slate-500 hover:text-slate-800 transition-colors"
-                aria-label="Close modal"
+                className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-all duration-300"
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
               >
-                <FaTimes className="w-6 h-6" />
-              </button>
+                <FaTimes className="w-5 h-5" />
+              </motion.button>
             </div>
+            
+            {/* Content */}
             <div className="flex flex-col md:flex-row">
               {imageUrl && (
-                <div className="md:w-1/2 w-full h-48 md:h-auto bg-cover bg-center" style={{ backgroundImage: `url(${imageUrl})` }} />
+                <motion.div 
+                  className="md:w-1/2 w-full h-48 md:h-auto relative overflow-hidden"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <img 
+                    src={imageUrl} 
+                    alt={title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </motion.div>
               )}
-              <div className={`p-6 ${imageUrl ? 'md:w-1/2 w-full' : 'w-full'}`}>
-                {children}
-              </div>
+              <motion.div 
+                className={`p-8 bg-white/80 ${imageUrl ? 'md:w-1/2 w-full' : 'w-full'}`}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <div className="text-slate-700 leading-relaxed">
+                  {children}
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>
@@ -56,4 +79,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, imageUr
   );
 };
 
-export default Modal; 
+export default Modal;
