@@ -1,140 +1,132 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import {
-  FaVideo,
-  FaNetworkWired,
-  FaShieldAlt,
-  FaBoxOpen,
-  FaIndustry,
-  FaBuilding,
-  FaBolt,
-  FaGlobe,
-} from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
+import { serviceCategories } from "@/lib/data/services";
+import SectionHeader from "./ui/SectionHeader";
 
-const services = [
-  {
-    title: "AV Integration",
-    description: "Immersive Audio Visual & Communication Experiences",
-    details:
-      "State-of-the-art AV solutions including video walls, high-fidelity audio, dynamic lighting, and digital signage.",
-    icon: <FaVideo className="text-4xl md:text-5xl" />,
-  },
-  {
-    title: "IT Integration",
-    description: "Seamlessly Bridging AV & IT for Smarter Workspaces",
-    details:
-      "Ensuring your AV systems integrate perfectly with your IT infrastructure for seamless operations.",
-    icon: <FaNetworkWired className="text-4xl md:text-5xl" />,
-  },
-  {
-    title: "Security & Surveillance",
-    description: "CCTV & Monitoring Systems You Can Rely On",
-    details:
-      "Advanced surveillance solutions with smart analytics and 24/7 monitoring capabilities.",
-    icon: <FaShieldAlt className="text-4xl md:text-5xl" />,
-  },
-  {
-    title: "Distribution",
-    description: "Precision Tools & Electronic Components",
-    details:
-      "High-quality Test & Measurement Equipment and a wide range of Electronic Components.",
-    icon: <FaBoxOpen className="text-4xl md:text-5xl" />,
-  },
-  {
-    title: "Industrial Computing",
-    description: "Tailored Tech Solutions for Tough Environments",
-    details:
-      "Rugged computing solutions designed for industrial strength and performance.",
-    icon: <FaIndustry className="text-4xl md:text-5xl" />,
-  },
-  {
-    title: "Interior & Acoustics",
-    description: "Spaces that Look Great & Sound Even Better",
-    details:
-      "Beautiful design meets functional acoustics for optimal comfort and performance.",
-    icon: <FaBuilding className="text-4xl md:text-5xl" />,
-  },
-  {
-    title: "Electrical Projects",
-    description: "Reliable Power Solutions with Precision",
-    details:
-      "Comprehensive electrical services from planning and installation to maintenance.",
-    icon: <FaBolt className="text-4xl md:text-5xl" />,
-  },
-  {
-    title: "Web Development",
-    description: "Creating Your Digital Presence with Purpose",
-    details:
-      "Responsive, visually stunning, and user-friendly websites that drive results.",
-    icon: <FaGlobe className="text-4xl md:text-5xl" />,
-  },
-];
-
-const Services = () => {
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+export default function Services() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-slate-50" id="services">
-      <div className="container mx-auto">
+    <section id="services" className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 bg-[#050a14]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="container-wide relative z-10">
+        <SectionHeader
+          eyebrow="What We Do"
+          title="Integrated Solutions"
+          subtitle="Four core disciplines. One seamless delivery."
+        />
+
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-col lg:flex-row gap-2 h-auto lg:h-[520px]"
         >
-          <h2 className="section-title">Our Services</h2>
-          <div className="accent-line my-6" />
-          <p className="section-subtitle max-w-3xl mx-auto">
-            Comprehensive IT solutions tailored to your specific needs
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -6 }}
-              className="card hover-lift group cursor-pointer text-center"
-            >
-              {/* Icon */}
+          {serviceCategories.map((service, index) => {
+            const isActive = activeIndex === index;
+            return (
               <motion.div
-                className="icon-box mx-auto mb-6 text-primary-600"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
+                key={service.id}
+                onMouseEnter={() => setActiveIndex(index)}
+                className={`relative overflow-hidden rounded-sm border cursor-pointer transition-all duration-500 ease-out ${
+                  isActive
+                    ? "lg:flex-[3] border-cyan-500/30 shadow-glow"
+                    : "lg:flex-[0.6] border-white/10 hover:border-white/20"
+                }`}
+                style={{ minHeight: isActive ? "400px" : "120px" }}
               >
-                {service.icon}
+                {/* Background */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={service.id + "-bg"}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                      sizes={isActive ? "60vw" : "15vw"}
+                    />
+                    <div
+                      className={`absolute inset-0 transition-all duration-500 ${
+                        isActive
+                          ? "bg-gradient-to-t from-[#050a14] via-[#050a14]/70 to-[#050a14]/30"
+                          : "bg-[#050a14]/80"
+                      }`}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col justify-end p-6 md:p-8">
+                  <motion.span
+                    animate={{ fontSize: isActive ? "4rem" : "2rem", opacity: isActive ? 0.15 : 0.08 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute top-4 right-4 font-bold text-cyan-400 leading-none select-none"
+                  >
+                    {service.number}
+                  </motion.span>
+
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-cyan-400 mb-2">
+                      {service.number}
+                    </p>
+                    <h3
+                      className={`font-bold text-white transition-all duration-400 ${
+                        isActive ? "text-2xl md:text-3xl mb-3" : "text-lg md:text-xl"
+                      }`}
+                    >
+                      {service.title}
+                    </h3>
+
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-5 max-w-md">
+                            {service.panelDescription}
+                          </p>
+                          <Link
+                            href={`#${service.slug}`}
+                            className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors group"
+                          >
+                            View Services
+                            <FaArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+
+                {/* Cyan glow on active */}
+                {isActive && (
+                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+                )}
               </motion.div>
-
-              {/* Title */}
-              <h3 className="text-xl md:text-2xl font-bold mb-3 text-navy-950">
-                {service.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-slate-600 mb-3 font-medium text-sm md:text-base">
-                {service.description}
-              </p>
-
-              {/* Details */}
-              <p className="text-slate-500 text-xs md:text-sm leading-relaxed">
-                {service.details}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );
-};
-
-export default Services;
+}

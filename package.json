@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "images:fetch": "node scripts/fetch-images.mjs",
+    "images:services": "node scripts/fetch-service-manifest.mjs"
   },
   "dependencies": {
     "@types/nodemailer": "^7.0.11",

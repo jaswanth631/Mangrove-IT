@@ -29,7 +29,7 @@ export default function BackToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className={`back-to-top ${isVisible ? 'visible' : ''}`}
+      className={`back-to-top ${isVisible ? 'is-visible' : ''}`}
       aria-label="Back to top"
     >
       <FaArrowUp className="text-xl" />

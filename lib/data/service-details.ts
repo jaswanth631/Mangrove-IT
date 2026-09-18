@@ -1,0 +1,238 @@
+export interface ServiceDetail {
+  includes: string[];
+  applications: string[];
+  components: string[];
+  benefits: string[];
+  whyChoose: string[];
+}
+
+export const serviceDetails: Record<string, ServiceDetail> = {
+  "video-conferencing": {
+    includes: [
+      "Room assessment and AV system design",
+      "Display, camera, microphone and speaker installation",
+      "Video conferencing platform integration",
+      "Wireless presentation and room control",
+      "Cable management and rack integration",
+      "Testing, commissioning and user training",
+    ],
+    applications: ["Boardrooms", "Huddle rooms", "Training rooms", "Executive meeting spaces", "Hybrid workplaces"],
+    components: ["4K displays", "PTZ/bar cameras", "Ceiling/table microphones", "DSP audio", "Control panels", "VC codecs"],
+    benefits: ["Reliable hybrid meetings", "One-touch room operation", "Professional image and audio quality", "Platform-ready deployment"],
+    whyChoose: ["Certified AV engineers", "Enterprise-grade equipment", "End-to-end room delivery", "Ongoing support available"],
+  },
+  "background-audio": {
+    includes: ["Zone-based audio design", "Ceiling/wall speaker installation", "Amplifier and DSP programming", "Paging and BGM integration", "Volume zoning and scheduling", "Commissioning and handover"],
+    applications: ["Retail stores", "Hotels and lobbies", "Restaurants", "Corporate offices", "Hospitals and public venues"],
+    components: ["Commercial ceiling speakers", "Power amplifiers", "Audio DSP", "Paging microphones", "Source players", "Zone controllers"],
+    benefits: ["Uniform sound coverage", "Independent zone control", "Scalable multi-area audio", "Professional ambient experience"],
+    whyChoose: ["Commercial-grade audio design", "Clean ceiling installations", "Integration with paging/emergency systems", "Lifecycle maintenance support"],
+  },
+  "large-pa-line-arrays": {
+    includes: ["Acoustic modelling and system design", "Line array speaker deployment", "Amplification and signal processing", "Wireless microphone systems", "Stage monitoring setup", "System tuning and commissioning"],
+    applications: ["Auditoriums", "Convention centres", "Houses of worship", "Sports venues", "Outdoor events"],
+    components: ["Line array cabinets", "Subwoofers", "Digital mixers", "Wireless mics", "Stage monitors", "Rigging hardware"],
+    benefits: ["Full-room intelligibility", "Music-quality reinforcement", "Scalable venue coverage", "Professional event-ready sound"],
+    whyChoose: ["Large-venue experience", "Manufacturer-certified installation", "Precise acoustic tuning", "Complete PA lifecycle support"],
+  },
+  projection: {
+    includes: ["Projection system design", "Projector and screen installation", "Lens selection and alignment", "Control and source integration", "Calibration and colour tuning", "Maintenance planning"],
+    applications: ["Boardrooms", "Classrooms", "Auditoriums", "Training centres", "Command briefing rooms"],
+    components: ["Laser/4K projectors", "Motorised screens", "Ceiling mounts", "HDMI/HDBaseT distribution", "Control systems", "Rack equipment"],
+    benefits: ["Large-format visuals", "Reliable presentation environments", "Flexible source switching", "Long-life laser projection"],
+    whyChoose: ["Professional mounting and alignment", "Brand-agnostic solutions", "Room-optimised designs", "Post-installation support"],
+  },
+  "led-video-wall": {
+    includes: ["LED wall engineering and layout", "Cabinet installation and alignment", "Video processing and control", "Content management integration", "Structural and power planning", "Calibration and commissioning"],
+    applications: ["Corporate lobbies", "Control rooms", "Auditoriums", "Retail flagship stores", "Event and broadcast walls"],
+    components: ["LED display cabinets", "Video processors", "Mounting structures", "Power distribution", "Control software", "Cooling/ventilation"],
+    benefits: ["High-impact visual presence", "Seamless large-format display", "24/7 commercial operation", "Real-time content control"],
+    whyChoose: ["Fine-pitch LED expertise", "Precision cabinet alignment", "Enterprise content integration", "Full project delivery"],
+  },
+  "commercial-tv-screens": {
+    includes: ["Display specification and procurement", "Wall/ceiling mount installation", "Signal distribution setup", "Commercial display configuration", "Multi-screen video walls", "Warranty and support coordination"],
+    applications: ["Corporate lobbies", "Retail displays", "Hotel public areas", "Digital menu boards", "Waiting lounges"],
+    components: ["Commercial-grade displays", "Mounts and brackets", "Media players", "HDMI/matrix distribution", "Scheduling systems"],
+    benefits: ["24/7 display reliability", "High-brightness performance", "Centralised content control", "Professional installation finish"],
+    whyChoose: ["Authorised commercial display supply", "Safe structural mounting", "Multi-site rollout capability", "Maintenance contracts available"],
+  },
+  "interactive-touch-screens": {
+    includes: ["Interactive display selection", "Wall/mobile stand installation", "Wireless collaboration setup", "Whiteboarding software configuration", "VC platform integration", "User training"],
+    applications: ["Collaboration rooms", "Training classrooms", "Design studios", "Executive briefing rooms", "Interactive lobbies"],
+    components: ["Interactive flat panels", "Touch collaboration software", "Wireless casting", "Mobile stands", "Room PCs", "Control interfaces"],
+    benefits: ["Engaging collaboration", "Annotation and whiteboarding", "Wireless BYOD sharing", "Integrated meeting workflows"],
+    whyChoose: ["Enterprise display deployment", "Platform integration expertise", "Ergonomic mounting solutions", "Ongoing technical support"],
+  },
+  "digital-signage": {
+    includes: ["Signage network design", "Display and player installation", "CMS configuration", "Content scheduling setup", "Remote management deployment", "Site commissioning"],
+    applications: ["Retail chains", "Corporate campuses", "Hospitals", "Transport hubs", "Hotels and restaurants"],
+    components: ["Commercial displays", "Media players", "CMS platform", "Network infrastructure", "Mounting hardware", "Content templates"],
+    benefits: ["Centralised content control", "Real-time updates", "Multi-location management", "Professional brand presentation"],
+    whyChoose: ["Scalable signage architecture", "Cloud and on-premise options", "Content workflow setup", "Nationwide deployment experience"],
+  },
+  "stage-concert-lighting": {
+    includes: ["Lighting design and rigging plan", "Fixture installation and addressing", "DMX/control programming", "Console setup and scenes", "Safety compliance checks", "Operator training"],
+    applications: ["Theatres", "Auditoriums", "Concert venues", "Event stages", "Houses of worship"],
+    components: ["Moving head fixtures", "LED pars/washes", "Lighting consoles", "DMX infrastructure", "Truss and rigging", "Power distribution"],
+    benefits: ["Dynamic stage visuals", "Programmable show scenes", "Energy-efficient LED fixtures", "Professional performance lighting"],
+    whyChoose: ["Performance lighting specialists", "Rigging and safety compliance", "Show programming support", "Venue-scale delivery"],
+  },
+  "web-development": {
+    includes: ["Requirements and UX planning", "Frontend and backend development", "CMS/portal implementation", "API integration", "Performance optimisation", "Deployment and support"],
+    applications: ["Corporate websites", "Customer portals", "E-commerce platforms", "Internal dashboards", "Service booking systems"],
+    components: ["Modern web frameworks", "Responsive UI", "Secure authentication", "Database layer", "Cloud hosting", "CI/CD pipelines"],
+    benefits: ["Scalable digital platforms", "Mobile-ready experiences", "Secure enterprise architecture", "Maintainable codebase"],
+    whyChoose: ["Full-stack engineering team", "Enterprise delivery standards", "Integration with existing systems", "Long-term support options"],
+  },
+  "application-integration": {
+    includes: ["Integration architecture design", "Middleware and ESB setup", "Legacy system connectivity", "Data synchronisation", "API orchestration", "Monitoring and support"],
+    applications: ["ERP–CRM integration", "Warehouse systems", "Finance platforms", "HR and payroll systems", "Multi-vendor ecosystems"],
+    components: ["Integration middleware", "ETL pipelines", "API gateways", "Message queues", "Monitoring tools", "Security layers"],
+    benefits: ["Unified business data", "Automated workflows", "Reduced manual entry", "Real-time system sync"],
+    whyChoose: ["Enterprise integration experience", "Vendor-neutral approach", "Secure data exchange", "Documented architecture"],
+  },
+  erp: {
+    includes: ["ERP platform assessment", "Module configuration", "Custom workflow development", "Third-party integrations", "Data migration", "Training and go-live support"],
+    applications: ["Manufacturing", "Distribution", "Retail operations", "Project-based businesses", "Multi-branch enterprises"],
+    components: ["ERP core modules", "Finance and inventory", "HR/payroll connectors", "Reporting dashboards", "API integrations", "User roles and security"],
+    benefits: ["Centralised operations", "Process standardisation", "Real-time business visibility", "Scalable enterprise management"],
+    whyChoose: ["Implementation methodology", "Cross-module integration", "Change management support", "Post-go-live maintenance"],
+  },
+  "web-services": {
+    includes: ["Service architecture design", "Microservices deployment", "API gateway configuration", "Authentication and security", "Load balancing setup", "Monitoring and logging"],
+    applications: ["Enterprise portals", "Mobile app backends", "Partner integrations", "Internal service platforms", "Cloud-native systems"],
+    components: ["Application servers", "API gateways", "Service mesh", "Cloud infrastructure", "Caching layers", "Observability stack"],
+    benefits: ["Reliable service delivery", "Horizontal scalability", "Secure service access", "High availability"],
+    whyChoose: ["Cloud and on-prem expertise", "Performance-focused design", "Security best practices", "24/7 monitoring options"],
+  },
+  "rest-apis": {
+    includes: ["API design and documentation", "REST endpoint development", "Authentication (OAuth/JWT)", "Versioning strategy", "Testing and validation", "Developer portal setup"],
+    applications: ["Mobile applications", "Partner ecosystems", "ERP/CRM connectivity", "IoT platforms", "SaaS integrations"],
+    components: ["REST endpoints", "OpenAPI/Swagger docs", "Auth services", "Rate limiting", "Logging/monitoring", "SDK support"],
+    benefits: ["Standardised integrations", "Faster partner onboarding", "Secure data exchange", "Future-proof interfaces"],
+    whyChoose: ["API-first engineering", "Comprehensive documentation", "Security and compliance focus", "Integration testing rigour"],
+  },
+  "work-stations": {
+    includes: ["Space planning and layout", "Workstation supply and installation", "Cable and power integration", "Ergonomic configuration", "Accessories and storage", "Site handover"],
+    applications: ["Open-plan offices", "Tech campuses", "Call centres", "Co-working fit-outs", "Department expansions"],
+    components: ["Modular desks", "Privacy panels", "Cable management", "Power modules", "Monitor arms", "Storage pedestals"],
+    benefits: ["Productive workspaces", "Flexible layouts", "Clean cable management", "Ergonomic employee comfort"],
+    whyChoose: ["Turnkey interior delivery", "Commercial-grade furniture", "On-site installation teams", "Scalable rollout capability"],
+  },
+  "office-table-chairs": {
+    includes: ["Furniture selection and procurement", "Meeting and executive table installation", "Ergonomic chair deployment", "Layout optimisation", "Brand/finish coordination", "Post-installation support"],
+    applications: ["Conference rooms", "Executive cabins", "Collaboration zones", "Boardrooms", "Training rooms"],
+    components: ["Conference tables", "Executive desks", "Ergonomic chairs", "Visitor seating", "Side tables", "Accessories"],
+    benefits: ["Professional meeting environments", "Comfortable seating", "Cohesive interior aesthetics", "Durable commercial furniture"],
+    whyChoose: ["Wide vendor partnerships", "Space-efficient layouts", "Quality commercial products", "Single-point project delivery"],
+  },
+  "cupboard-storage-racks": {
+    includes: ["Storage needs assessment", "Cabinet and rack supply", "Installation and anchoring", "Labelling and organisation", "Locking/security options", "Final inspection"],
+    applications: ["Offices", "Archives", "Warehouses", "Labs", "Back-office areas"],
+    components: ["Filing cabinets", "Open shelving", "Lockers", "Mobile pedestals", "Archive racks", "Accessories"],
+    benefits: ["Organised workspaces", "Maximised storage density", "Secure document storage", "Clean professional interiors"],
+    whyChoose: ["Custom storage planning", "Commercial-grade products", "Professional installation", "Bulk project capability"],
+  },
+  "computer-table-study-desks": {
+    includes: ["Desk layout planning", "Computer desk supply", "Cable routing integration", "Chair pairing", "Lab/training setup", "Installation and QA"],
+    applications: ["Computer labs", "Training centres", "Study rooms", "Libraries", "Developer workspaces"],
+    components: ["Computer desks", "Cable trays", "Power strips", "Monitor mounts", "Chairs", "Partition options"],
+    benefits: ["Efficient learning environments", "Durable desk solutions", "Integrated cable management", "Flexible seating layouts"],
+    whyChoose: ["Education and corporate experience", "Bulk supply capability", "On-site assembly teams", "Custom sizing available"],
+  },
+  "data-center-storage-racks": {
+    includes: ["Rack layout and capacity planning", "Server rack installation", "Cable management deployment", "PDU and grounding", "Labelling and documentation", "Commissioning"],
+    applications: ["Server rooms", "Data centres", "Network closets", "ISP facilities", "Enterprise IT rooms"],
+    components: ["42U server racks", "Cable managers", "PDUs", "Shelves and blanks", "Cooling accessories", "Grounding kits"],
+    benefits: ["Organised IT infrastructure", "Improved airflow and access", "Scalable rack architecture", "Professional cable discipline"],
+    whyChoose: ["Data centre installation expertise", "Structured cabling integration", "Safety-compliant grounding", "Enterprise documentation"],
+  },
+  "customized-furniture": {
+    includes: ["Design consultation", "3D visualisation", "Material and finish selection", "Custom manufacturing", "On-site installation", "Quality inspection"],
+    applications: ["Reception areas", "Executive suites", "Retail fit-outs", "Specialised workspaces", "Branded interiors"],
+    components: ["Bespoke cabinetry", "Reception desks", "Feature walls", "Custom workstations", "Display units", "Hardware and finishes"],
+    benefits: ["Brand-aligned interiors", "Space-maximising designs", "Premium finishes", "Unique professional identity"],
+    whyChoose: ["In-house design coordination", "Quality craftsmanship partners", "End-to-end project management", "Single accountable vendor"],
+  },
+  "acoustic-treatment": {
+    includes: ["Room acoustic analysis", "Panel and treatment design", "Wall/ceiling panel installation", "Bass trap deployment", "Reflection control tuning", "Final acoustic verification"],
+    applications: ["Studios", "Auditoriums", "Conference rooms", "Open offices", "Performance spaces"],
+    components: ["Acoustic wall panels", "Ceiling clouds", "Bass traps", "Diffusers", "Mounting hardware", "Absorption materials"],
+    benefits: ["Improved speech clarity", "Reduced echo and reverb", "Better AV performance", "Comfortable acoustic environment"],
+    whyChoose: ["Acoustic engineering approach", "Aesthetic panel options", "AV-acoustic integration", "Measured results"],
+  },
+  soundproofing: {
+    includes: ["Sound isolation assessment", "Wall/ceiling/floor treatment", "Acoustic door and window solutions", "Sealing and barrier installation", "STC performance planning", "Verification testing"],
+    applications: ["Recording studios", "Meeting rooms", "Home theatres", "Broadcast rooms", "Noise-sensitive labs"],
+    components: ["Mass-loaded barriers", "Acoustic doors", "Sealing systems", "Decoupled walls", "Insulation layers", "Floating floors"],
+    benefits: ["Effective noise isolation", "Privacy between spaces", "Compliance with noise standards", "Professional studio-grade rooms"],
+    whyChoose: ["Sound isolation specialists", "Multi-layer system design", "Construction-grade execution", "Performance-focused delivery"],
+  },
+  "acoustic-panels": {
+    includes: ["Panel layout design", "Fabric/finish selection", "Wall and ceiling mounting", "Custom sizing", "Integration with interiors", "Installation and finishing"],
+    applications: ["Offices", "Restaurants", "Auditoriums", "Call centres", "Lobbies"],
+    components: ["Fabric-wrapped panels", "PET felt panels", "Ceiling baffles", "Printed panels", "Mounting tracks", "Adhesive systems"],
+    benefits: ["Noise reduction", "Design-friendly finishes", "Improved room comfort", "Quick retrofit capability"],
+    whyChoose: ["Wide finish catalogue", "Architectural coordination", "Clean installation standards", "Acoustic + aesthetic balance"],
+  },
+  "false-ceiling-solutions": {
+    includes: ["Ceiling layout design", "Grid and tile installation", "Acoustic tile integration", "Lighting and HVAC coordination", "Access panel planning", "Final inspection"],
+    applications: ["Corporate offices", "Hospitals", "Retail", "Educational buildings", "Commercial interiors"],
+    components: ["Suspended grid systems", "Acoustic ceiling tiles", "Metal ceilings", "Access panels", "Lighting integration", "Air diffusers"],
+    benefits: ["Hidden services routing", "Improved acoustics", "Modern ceiling aesthetics", "Easy maintenance access"],
+    whyChoose: ["MEP-coordinated installation", "Commercial ceiling expertise", "Acoustic performance options", "Large-area delivery"],
+  },
+  "acoustic-insulation": {
+    includes: ["Insulation specification", "Wall/floor/ceiling insulation install", "Partition acoustic upgrades", "Compliance documentation", "Thermal-acoustic coordination", "Site quality checks"],
+    applications: ["Commercial buildings", "Hotels", "Hospitals", "Residential towers", "Industrial facilities"],
+    components: ["Mineral wool insulation", "Acoustic membranes", "Resilient channels", "Sealants", "Barrier mats", "Fire-rated materials"],
+    benefits: ["Reduced sound transmission", "Energy efficiency gains", "Building code compliance", "Comfortable environments"],
+    whyChoose: ["Building acoustic expertise", "Fire-rated material knowledge", "Multi-trade coordination", "Documented compliance"],
+  },
+  "ht-lt-installations": {
+    includes: ["Electrical load assessment", "HT/LT panel installation", "Transformer and switchgear setup", "Cable laying and termination", "Earthing and lightning protection", "Testing and commissioning"],
+    applications: ["Industrial plants", "Commercial complexes", "Hospitals", "Data centres", "Infrastructure projects"],
+    components: ["HT switchgear", "Transformers", "LT panels", "Bus ducts", "Earthing systems", "Protection relays"],
+    benefits: ["Reliable power distribution", "Code-compliant installation", "Safe industrial operation", "Scalable electrical infrastructure"],
+    whyChoose: ["Licensed electrical engineers", "Industrial project experience", "Safety-first execution", "Complete documentation"],
+  },
+  "industrial-wiring": {
+    includes: ["Wiring layout design", "Cable tray and conduit installation", "Machine and panel wiring", "Motor control circuits", "Labeling and documentation", "Testing and certification"],
+    applications: ["Manufacturing plants", "Processing facilities", "Warehouses", "Production lines", "Utility installations"],
+    components: ["Power cables", "Cable trays", "Conduits", "Terminal blocks", "Motor starters", "Instrumentation wiring"],
+    benefits: ["Robust plant wiring", "Organised cable management", "Reduced downtime risk", "Maintainable installations"],
+    whyChoose: ["Industrial wiring specialists", "Heavy-duty standards", "On-site safety compliance", "Long-term maintenance support"],
+  },
+  "electrical-design": {
+    includes: ["Load calculations", "Single-line diagrams", "Panel schedules", "Lighting design", "AutoCAD drawings", "Specification documentation"],
+    applications: ["New constructions", "Plant expansions", "Office fit-outs", "Infrastructure upgrades", "Compliance renovations"],
+    components: ["SLD drawings", "Load analysis reports", "Cable schedules", "Panel layouts", "Lighting layouts", "BOQ/specifications"],
+    benefits: ["Optimised electrical design", "Regulatory compliance", "Cost-efficient planning", "Clear contractor documentation"],
+    whyChoose: ["Licensed design engineers", "AutoCAD expertise", "Standards-compliant drawings", "Design-to-execution continuity"],
+  },
+  "control-panels": {
+    includes: ["Panel design and engineering", "Component selection", "Panel assembly and wiring", "Factory acceptance testing", "On-site installation", "PLC/SCADA integration"],
+    applications: ["Manufacturing automation", "Process plants", "Water treatment", "HVAC plants", "Material handling"],
+    components: ["PLC/SCADA panels", "MCC panels", "VFD panels", "Control relays", "HMI interfaces", "Power distribution"],
+    benefits: ["Reliable automation control", "Custom-built to specification", "Tested before deployment", "Reduced commissioning time"],
+    whyChoose: ["In-house panel engineering", "Industrial-grade components", "FAT and documentation", "Integration with site systems"],
+  },
+  "maintenance-contracts": {
+    includes: ["Scheduled preventive maintenance", "Thermographic inspections", "Connection tightening and cleaning", "Breaker and relay testing", "Detailed maintenance reports", "Emergency response options"],
+    applications: ["Industrial facilities", "Commercial buildings", "Hospitals", "Data centres", "Infrastructure sites"],
+    components: ["Inspection checklists", "Thermal cameras", "Test instruments", "Spare parts planning", "Service logs", "SLA reporting"],
+    benefits: ["Reduced unexpected failures", "Extended equipment life", "Regulatory compliance", "Predictable maintenance costs"],
+    whyChoose: ["Experienced service technicians", "Documented AMC programs", "Rapid response capability", "Multi-site coverage"],
+  },
+  "repair-services": {
+    includes: ["Fault diagnosis", "Breakdown repair", "Component replacement", "Emergency call-out", "Testing and restoration", "Root-cause reporting"],
+    applications: ["Industrial plants", "Commercial electrical systems", "Control panels", "Motor and drive faults", "Power distribution issues"],
+    components: ["Diagnostic tools", "Replacement parts", "Portable test equipment", "Safety gear", "Temporary power solutions"],
+    benefits: ["Minimised downtime", "Fast fault resolution", "Safe repair practices", "Restored system reliability"],
+    whyChoose: ["Skilled electrical technicians", "Rapid response teams", "Industrial repair experience", "Transparent service reporting"],
+  },
+};
+
+export function getServiceDetail(slug: string): ServiceDetail | undefined {
+  return serviceDetails[slug];
+}

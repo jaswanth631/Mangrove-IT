@@ -1,71 +1,57 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#6366f1',
-          dark: '#4f46e5',
-        },
-        secondary: {
-          DEFAULT: '#ec4899',
-          dark: '#db2777',
+        navy: {
+          950: "#050a14",
+          900: "#0a1220",
+          800: "#0f1a2e",
+          700: "#162032",
         },
         accent: {
-          DEFAULT: '#22d3ee',
-          dark: '#06b6d4',
+          DEFAULT: "#22d3ee",
+          dark: "#0891b2",
+          dim: "#0e7490",
         },
-        background: {
-          DEFAULT: '#111827',
-          dark: '#0f172a',
-          darker: '#0a0f1a',
-          darkest: '#05070d',
-        },
-        text: {
-          DEFAULT: '#f3f4f6',
-          dark: '#e5e7eb',
-        },
-      },
-      backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, var(--tw-gradient-stops))',
-        'gradient-dark': 'linear-gradient(to bottom, var(--tw-gradient-stops))',
-        'gradient-darker': 'linear-gradient(to bottom, var(--tw-gradient-stops))',
-        'gradient-darkest': 'linear-gradient(to bottom, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Poppins', 'sans-serif'],
+        sans: ["Inter", "sans-serif"],
+        heading: ["DM Sans", "Inter", "sans-serif"],
+      },
+      boxShadow: {
+        glow: "0 0 30px rgba(34, 211, 238, 0.15)",
+        "glow-lg": "0 0 60px rgba(34, 211, 238, 0.2)",
       },
       animation: {
-        'fade-in': 'fadeIn 0.8s ease-in-out',
-        'slide-up': 'slideUp 0.8s ease-in-out',
-        'float': 'float 3s ease-in-out infinite',
-        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        "fade-in": "fadeIn 0.6s ease-out",
+        "slide-up": "slideUp 0.6s ease-out",
+        "pulse-glow": "pulseGlow 3s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+          "0%": { transform: "translateY(24px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
+        pulseGlow: {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
         },
       },
     },
   },
   plugins: [],
-}
+};
 
-export default config 
+export default config;

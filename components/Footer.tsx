@@ -1,161 +1,109 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
-  FaInstagram,
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { siteConfig } from "@/lib/data/site";
+import { serviceCategories } from "@/lib/data/services";
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
+export default function Footer() {
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-navy-950 text-white pt-16 md:pt-20 pb-8">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
-          {/* Company Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              <span className="text-white">Mangrove</span>
-              <span className="text-accent-400">IT</span>
-            </h3>
-            <p className="text-white/70 text-sm md:text-base leading-relaxed">
-              Professional IT solutions provider delivering excellence in AV
-              integration, IT services, and electrical projects.
+    <footer className="bg-[#030810] border-t border-white/5 pt-16 pb-8">
+      <div className="container-wide">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+          {/* Brand */}
+          <div className="min-w-0 sm:col-span-2 lg:col-span-1">
+            <span className="relative block h-10 sm:h-12 lg:h-14 w-full max-w-[280px] sm:max-w-[380px] lg:max-w-full mb-4">
+              <Image
+                src="/mangrove_logo.png"
+                alt="Mangrove Integrated Solutions Pvt. Ltd."
+                fill
+                sizes="(max-width: 1024px) 380px, 280px"
+                className="object-contain object-left brightness-125 contrast-110 saturate-125 drop-shadow-[0_0_10px_rgba(74,222,128,0.2)]"
+                unoptimized
+              />
+            </span>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Professional technology and systems integration company delivering
+              AV, IT, interior, acoustic and electrical solutions for modern
+              infrastructure.
             </p>
-
-            {/* Social Media */}
-            <div className="flex gap-3 mt-6">
-              {[FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram].map(
-                (Icon, index) => (
-                  <motion.a
-                    key={index}
-                    href="#"
-                    whileHover={{ y: -3 }}
-                    className="w-10 h-10 rounded-lg bg-white/10 hover:bg-gradient-to-br hover:from-primary-600 hover:to-accent-500 flex items-center justify-center transition-all duration-300"
-                  >
-                    <Icon className="text-base" />
-                  </motion.a>
-                )
-              )}
-            </div>
-          </motion.div>
+          </div>
 
           {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-lg md:text-xl font-bold mb-4 text-white">
-              Quick Links
-            </h4>
+          <div className="min-w-0">
+            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Quick Links</h4>
             <ul className="space-y-2">
-              {[
-                { label: "Home", href: "#home" },
-                { label: "About", href: "#about" },
-                { label: "Services", href: "#services" },
-                { label: "Contact", href: "#contact" },
-              ].map((link, index) => (
-                <li key={index}>
-                  <a
+              {siteConfig.navLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
                     href={link.href}
-                    className="text-white/70 hover:text-accent-400 transition-colors duration-300 text-sm md:text-base"
+                    className="text-sm text-slate-400 hover:text-cyan-400 transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Services */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-lg md:text-xl font-bold mb-4 text-white">
-              Our Services
-            </h4>
+          <div className="min-w-0">
+            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Services</h4>
             <ul className="space-y-2">
-              {[
-                "AV Integration",
-                "IT Integration",
-                "Security & Surveillance",
-                "Electrical Projects",
-              ].map((service, index) => (
-                <li key={index}>
-                  <span className="text-white/70 text-sm md:text-base">
-                    {service}
-                  </span>
+              {serviceCategories.map((cat) => (
+                <li key={cat.id}>
+                  <Link
+                    href={`#${cat.slug}`}
+                    className="text-sm text-slate-400 hover:text-cyan-400 transition-colors"
+                  >
+                    {cat.title}
+                  </Link>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-lg md:text-xl font-bold mb-4 text-white">
-              Contact Us
-            </h4>
+          {/* Contact */}
+          <div className="min-w-0">
+            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <FaEnvelope className="text-accent-400 mt-1 flex-shrink-0 text-sm md:text-base" />
-                <span className="text-white/70 text-sm md:text-base">
-                  info@mangroveit.com
-                </span>
+                <FaEnvelope className="w-3.5 h-3.5 text-cyan-400 mt-0.5 shrink-0" />
+                <a
+                  href={`mailto:${siteConfig.contact.emails[0]}`}
+                  className="text-sm text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  {siteConfig.contact.emails[0]}
+                </a>
               </li>
               <li className="flex items-start gap-3">
-                <FaPhone className="text-accent-400 mt-1 flex-shrink-0 text-sm md:text-base" />
-                <span className="text-white/70 text-sm md:text-base">
-                  +91 123 456 7890
-                </span>
+                <FaPhone className="w-3.5 h-3.5 text-cyan-400 mt-0.5 shrink-0" />
+                <a
+                  href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
+                  className="text-sm text-slate-400 hover:text-cyan-400 transition-colors"
+                >
+                  {siteConfig.contact.phone}
+                </a>
               </li>
               <li className="flex items-start gap-3">
-                <FaMapMarkerAlt className="text-accent-400 mt-1 flex-shrink-0 text-sm md:text-base" />
-                <span className="text-white/70 text-sm md:text-base">
-                  Bangalore, Karnataka, India
+                <FaMapMarkerAlt className="w-3.5 h-3.5 text-cyan-400 mt-0.5 shrink-0" />
+                <span className="text-sm text-slate-400 leading-relaxed">
+                  {siteConfig.contact.address}
                 </span>
               </li>
             </ul>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="h-px bg-white/10 mb-8" />
-
-        {/* Copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center text-white/60 text-xs md:text-sm"
-        >
-          <p>&copy; {currentYear} MangroveIT. All rights reserved.</p>
-        </motion.div>
+        <div className="h-px bg-white/5 mb-6" />
+        <p className="text-center text-xs text-slate-500">
+          &copy; {year} {siteConfig.name}. All rights reserved.
+        </p>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

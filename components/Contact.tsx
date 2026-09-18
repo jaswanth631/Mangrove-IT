@@ -3,128 +3,91 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from "react-icons/fa";
+import { siteConfig } from "@/lib/data/site";
 import ContactForm from "./ContactForm";
-import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
+import SectionHeader from "./ui/SectionHeader";
 
-const Contact = () => {
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+export default function Contact() {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
-  const contactInfo = [
+  const contactItems = [
     {
-      icon: <FaMapMarkerAlt className="text-2xl md:text-3xl" />,
-      title: "Visit Us",
-      details: "Bangalore, Karnataka, India",
+      icon: FaMapMarkerAlt,
+      title: "Location",
+      details: siteConfig.contact.address,
     },
     {
-      icon: <FaPhone className="text-2xl md:text-3xl" />,
-      title: "Call Us",
-      details: "+91 123 456 7890",
+      icon: FaPhone,
+      title: "Phone",
+      details: siteConfig.contact.phone,
+      href: `tel:${siteConfig.contact.phone.replace(/\s/g, "")}`,
     },
     {
-      icon: <FaEnvelope className="text-2xl md:text-3xl" />,
-      title: "Email Us",
-      details: "info@mangroveit.com",
+      icon: FaEnvelope,
+      title: "Email",
+      details: siteConfig.contact.emails.join(" · "),
+      href: `mailto:${siteConfig.contact.emails[0]}`,
+    },
+    {
+      icon: FaClock,
+      title: "Business Hours",
+      details: `Mon–Fri: ${siteConfig.contact.businessHours.weekdays}\nSat: ${siteConfig.contact.businessHours.saturday}\nSun: ${siteConfig.contact.businessHours.sunday}`,
     },
   ];
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-white" id="contact">
-      <div className="container mx-auto">
+    <section id="contact" className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a1220] to-[#050a14]" />
+
+      <div className="container-wide relative z-10">
+        <SectionHeader
+          eyebrow="Contact"
+          title="Get In Touch"
+          subtitle="Ready to start your project? Reach out for a consultation."
+        />
+
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="max-w-7xl mx-auto"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16"
         >
-          {/* Section Title */}
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="section-title">Get In Touch</h2>
-            <div className="accent-line my-6" />
-            <p className="section-subtitle max-w-3xl mx-auto">
-              Let's discuss how we can help transform your business
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-6"
-            >
-              <div className="card">
-                <h3 className="text-2xl md:text-3xl font-bold mb-6 text-navy-950">
-                  Contact Information
-                </h3>
-                <div className="space-y-6">
-                  {contactInfo.map((info, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={inView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      className="flex items-start space-x-4"
-                    >
-                      <div className="text-primary-600 flex-shrink-0">
-                        {info.icon}
-                      </div>
-                      <div>
-                        <h4 className="text-base md:text-lg font-semibold text-navy-950 mb-1">
-                          {info.title}
-                        </h4>
-                        <p className="text-sm md:text-base text-slate-600">
-                          {info.details}
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
+          <div className="space-y-4">
+            {contactItems.map((item, index) => (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.6 }}
-                className="card"
+                key={item.title}
+                initial={{ opacity: 0, x: -16 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: index * 0.1 }}
+                className="glass-card p-5 flex items-start gap-4"
               >
-                <h3 className="text-xl md:text-2xl font-bold mb-4 text-navy-950">
-                  Business Hours
-                </h3>
-                <div className="space-y-2 text-sm md:text-base text-slate-600">
-                  <p className="flex justify-between">
-                    <span className="font-medium">Monday - Friday:</span>
-                    <span>9:00 AM - 6:00 PM</span>
-                  </p>
-                  <p className="flex justify-between">
-                    <span className="font-medium">Saturday:</span>
-                    <span>10:00 AM - 4:00 PM</span>
-                  </p>
-                  <p className="flex justify-between">
-                    <span className="font-medium">Sunday:</span>
-                    <span>Closed</span>
-                  </p>
+                <div className="p-2.5 rounded-sm bg-cyan-500/10 text-cyan-400 shrink-0">
+                  <item.icon className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-white mb-1">{item.title}</h4>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="text-sm text-slate-400 hover:text-cyan-400 transition-colors whitespace-pre-line"
+                    >
+                      {item.details}
+                    </a>
+                  ) : (
+                    <p className="text-sm text-slate-400 whitespace-pre-line leading-relaxed">
+                      {item.details}
+                    </p>
+                  )}
                 </div>
               </motion.div>
-            </motion.div>
-
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <ContactForm />
-            </motion.div>
+            ))}
           </div>
+
+          <ContactForm />
         </motion.div>
       </div>
     </section>
   );
-};
-
-export default Contact;
+}

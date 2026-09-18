@@ -1,4 +1,11 @@
 import { NextResponse } from 'next/server';
+import {
+  contactAutoReplyTemplate,
+  contactNotificationTemplate,
+} from '@/lib/email/templates';
+import { getEmailLogoAttachments } from '@/lib/email/logo';
+
+const DEFAULT_CONTACT_EMAIL = 'suresh@mangroveit.com';
 
 // Validate environment variables
 const requiredEnvVars = [
@@ -6,7 +13,6 @@ const requiredEnvVars = [
   'SMTP_PORT',
   'SMTP_USER',
   'SMTP_PASS',
-  'CONTACT_EMAIL',
 ];
 
 const missingEnvVars = requiredEnvVars.filter(
@@ -59,34 +65,30 @@ export async function POST(request: Request) {
       );
     }
 
-    // Email content
-    const mailOptions = {
-      from: `"${name}" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL,
+    const contactEmail = process.env.CONTACT_EMAIL || DEFAULT_CONTACT_EMAIL;
+
+    // Notification email to Mangrove IT team
+    const notificationMail = {
+      from: `"Mangrove Integrated Solutions" <${process.env.SMTP_USER}>`,
+      to: contactEmail,
       replyTo: email,
       subject: `New Contact Form Submission from ${name}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333;">New Contact Form Submission</h2>
-          <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px;">
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-            <p><strong>Message:</strong></p>
-            <div style="background-color: white; padding: 15px; border-radius: 3px; margin-top: 10px;">
-              ${message.replace(/\n/g, '<br>')}
-            </div>
-          </div>
-          <p style="color: #666; font-size: 12px; margin-top: 20px;">
-            This email was sent from the contact form on Mangrove IT website.
-          </p>
-        </div>
-      `,
+      html: contactNotificationTemplate({ name, email, phone, message }),
+      attachments: getEmailLogoAttachments(),
     };
 
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully:', info.messageId);
+    // Auto-reply confirmation to the person who submitted the form
+    const autoReplyMail = {
+      from: `"Mangrove Integrated Solutions" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: 'Thank you for contacting Mangrove Integrated Solutions',
+      html: contactAutoReplyTemplate({ name }),
+      attachments: getEmailLogoAttachments(),
+    };
+
+    const info = await transporter.sendMail(notificationMail);
+    await transporter.sendMail(autoReplyMail);
+    console.log('Emails sent successfully:', info.messageId);
 
     return NextResponse.json(
       { message: 'Email sent successfully' },
